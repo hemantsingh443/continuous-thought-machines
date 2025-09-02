@@ -1,5 +1,4 @@
 */__pycache__
-logs
 .DS_Store
 *.png
 *.pdf
@@ -20,3 +19,7 @@ examples/*
 !examples/03_mazes.ipynb
 !examples/04_parity.ipynb
 checkpoints
+visual_sorter_data 
+experiments/visual_sorter/__pycache__ 
+logs 
+env

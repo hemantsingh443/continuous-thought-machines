@@ -4,6 +4,8 @@ import torch
 from torch.utils.data import Dataset
 from PIL import Image
 import torchvision.transforms as transforms
+import random
+from PIL import UnidentifiedImageError
 
 class VisualSorterDataset(Dataset):
     """
@@ -45,6 +47,7 @@ class VisualSorterDataset(Dataset):
     def __getitem__(self, idx):
         """
         Fetches the sample at the given index.
+        If the image is corrupt, it will try to load a different random sample.
         
         Args:
             idx (int): The index of the sample to fetch.
@@ -56,8 +59,15 @@ class VisualSorterDataset(Dataset):
         img_name = self.image_files[idx]
         img_path = os.path.join(self.img_dir, img_name)
         
-        # Load the image
-        image = Image.open(img_path).convert('L')
+        try:
+            # Load the image
+            image = Image.open(img_path).convert('L')
+        except (IOError, UnidentifiedImageError):
+            print(f"\nWarning: Corrupt image file detected at {img_path}. Loading a random sample instead.")
+            # If the image is corrupt, load a different, random one.
+            # This prevents a single bad file from crashing the whole training run.
+            random_idx = random.randint(0, len(self) - 1)
+            return self.__getitem__(random_idx)
         
         # Apply transformations to the image
         image_tensor = self.transform(image)
