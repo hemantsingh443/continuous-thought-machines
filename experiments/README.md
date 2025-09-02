@@ -72,4 +72,4 @@ python -m experiments.visual_sorter.visualize_sorter --checkpoint logs/my_sorter
 ### Acknowledgments
 This project is an implementation based on the groundbreaking work by Sakana AI.
 - **Paper:** [Continuous Thought Machines (arXiv:2505.05522)](https://arxiv.org/abs/2505.05522)
-- **Original Code:** [sakanainc/ctm on GitHub](https://github.com/sakanainc/ctm)
+- **Original Code:** [sakanainc/ctm on GitHub](https://github.com/SakanaAI/continuous-thought-machines)
